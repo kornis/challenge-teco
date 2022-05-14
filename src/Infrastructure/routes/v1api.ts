@@ -4,6 +4,10 @@ import asyncHandler from "express-async-handler";
 
 export default (app: express.Application): void => {
 
+    //
+    // BY LOCATION
+    //
+
     app.use("/v1/location", asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
         if(req.method === "POST") {
@@ -20,4 +24,6 @@ export default (app: express.Application): void => {
             next();
         }
     }));
+
+    
 }
