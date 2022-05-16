@@ -65,8 +65,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var express_async_handler_1 = __importDefault(require("express-async-handler"));
 var inversify_config_1 = __importDefault(require("../../ioc_config/inversify.config"));
-var inversify_identifiers_1 = __importDefault(require("../../utils/inversify_identifiers"));
-var response = __importStar(require("../../utils/response"));
+var inversify_identifiers_1 = __importDefault(require("../../../utils/inversify_identifiers"));
+var response = __importStar(require("../../../utils/response"));
 var LocationService = inversify_config_1.default.get(inversify_identifiers_1.default.IPLOCATORSERVICE);
 exports.default = (function (app) {
     //

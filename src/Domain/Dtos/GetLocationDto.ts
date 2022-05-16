@@ -11,9 +11,8 @@ export class GetLocationDto {
     lat: Number;
     lon: Number;
     timezone: string;
-    statusCode: Number;
 
-    constructor(statusCode: Number, location: LocationEntity) {
+    constructor(location: LocationEntity) {
         this.country = location.country;
         this.countryCode = location.countryCode;
         this.region = location.region;
@@ -23,6 +22,5 @@ export class GetLocationDto {
         this.lat = location.lat;
         this.lon = location.lon;
         this.timezone = location.timezone;
-        this.statusCode = statusCode;
     }
 }

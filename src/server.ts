@@ -2,12 +2,11 @@ import * as fs from "fs";
 import * as file from "./utils/file";
 import express from "express";
 import * as dotenv from "dotenv";
-
+dotenv.config();
 class Server {
     public app: express.Application;
-
+    server: any;
     constructor() {
-        dotenv.config();
         this.app = express();
         this.config();
         this.routes();
@@ -35,9 +34,17 @@ class Server {
     }
 
     start() {
-        this.app.listen(this.app.get("port"), () => console.log("Server listening to port" + this.app.get("port")));
+        this.server = this.app.listen(this.app.get("port"), () => console.log("Server listening to port " + this.app.get("port")));
+    }
+
+    getApp() {
+        return this.app;
+    }
+
+    close() {
+        this.server.close()
     }
 }
 
-const server = new Server();
+export const server = new Server();
 server.start();

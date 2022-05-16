@@ -59,13 +59,10 @@ var Server = /** @class */ (function () {
     };
     Server.prototype.start = function () {
         var _this = this;
-        this.server = this.app.listen(this.app.get("port"), function () { return console.log("Server listening to port " + _this.app.get("port")); });
+        this.app.listen(this.app.get("port"), function () { return console.log("Server listening to port " + _this.app.get("port")); });
     };
     Server.prototype.getApp = function () {
         return this.app;
-    };
-    Server.prototype.close = function () {
-        this.server.close();
     };
     return Server;
 }());

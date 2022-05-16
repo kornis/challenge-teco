@@ -13,15 +13,15 @@ export class IpApi implements IpLocationRepository {
         this.requester = new Requester();
     }
 
-    async getLocationByIp(ipAddress: string): Promise<LocationEntity> {
+    async getLocationByIp(ipAddress: string): Promise<LocationEntity | null> {
         try {
             const fullUrl = this.baseUrl + ipAddress;
             const response = await this.requester.post<LocationEntity>(fullUrl);
             
             if(response.data)
-            return new GetLocationDto(response.code, response.data);
+            return new GetLocationDto(response.data);
     
-            throw new Error(response.exceptions);
+            return null;
         } catch(err) {
             
             throw err;

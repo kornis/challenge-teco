@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Container } from "inversify";
 import IDENTIFIERS from "Utils/inversify_identifiers";
 import { IpLocationService } from "Application";

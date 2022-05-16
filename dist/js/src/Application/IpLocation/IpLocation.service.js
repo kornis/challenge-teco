@@ -53,7 +53,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IpLocationService = void 0;
 var inversify_1 = require("inversify");
-var inversify_identifiers_1 = __importDefault(require("../../utils/inversify_identifiers"));
+var inversify_identifiers_1 = __importDefault(require("../../../utils/inversify_identifiers"));
 var IpLocationService = /** @class */ (function () {
     function IpLocationService(repository) {
         this.repository = repository;

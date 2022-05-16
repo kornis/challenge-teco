@@ -17,7 +17,7 @@ export class Requester {
                 headers: this.headers
             });
 
-            if ([200, 400, 401, 403, 404].indexOf(response.status) > -1) {
+            if ([200, 201].indexOf(response.status) > -1) {
                 const responseData: t = response.data;
 
                 return {
@@ -27,7 +27,11 @@ export class Requester {
                 };
             }
 
-            return Requester.mockResponse(response.status, response.data);
+            return {
+                code: response.status,
+                codeText: response.statusText,
+                data: null
+            };
 
         } catch (err) {
 
@@ -37,5 +41,4 @@ export class Requester {
         }
     }
 
-    static mockResponse = (code: Number, exceptions: any) => ({ code, exceptions, data: null });
 }

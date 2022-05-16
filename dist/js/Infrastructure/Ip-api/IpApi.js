@@ -46,9 +46,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IpApi = void 0;
-var Dtos_1 = require("Domain/Dtos");
+var Dtos_1 = require("../../Domain/Dtos");
 var inversify_1 = require("inversify");
-var requester_1 = require("Utils/requester");
+var requester_1 = require("../../utils/requester");
 var IpApi = /** @class */ (function () {
     function IpApi() {
         this.baseUrl = "http://ip-api.com/json/";
@@ -66,8 +66,8 @@ var IpApi = /** @class */ (function () {
                     case 1:
                         response = _a.sent();
                         if (response.data)
-                            return [2 /*return*/, new Dtos_1.GetLocationDto(response.code, response.data)];
-                        throw new Error(response.exceptions);
+                            return [2 /*return*/, new Dtos_1.GetLocationDto(response.data)];
+                        return [2 /*return*/, null];
                     case 2:
                         err_1 = _a.sent();
                         throw err_1;
