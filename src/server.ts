@@ -1,11 +1,13 @@
 import * as fs from "fs";
 import * as file from "./utils/file";
 import express from "express";
+import * as dotenv from "dotenv";
 
 class Server {
     public app: express.Application;
 
     constructor() {
+        dotenv.config();
         this.app = express();
         this.config();
         this.routes();

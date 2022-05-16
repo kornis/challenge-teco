@@ -9,7 +9,7 @@ export class WeatherApiService implements WeatherRepository {
 
     }
 
-    async getWeatherByLocation(location: string): Promise<any> {
+    async getWeatherByLocation(location?: string): Promise<any> {
         
     }
 }

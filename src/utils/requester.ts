@@ -10,7 +10,7 @@ export class Requester {
         }
     }
 
-    async post(url: string, payload?: Record<string, any>) {
+    async post<t>(url: string, payload?: Record<string, any>) {
         try {
 
             const response = await axios.post(url, payload, {
@@ -18,11 +18,12 @@ export class Requester {
             });
 
             if ([200, 400, 401, 403, 404].indexOf(response.status) > -1) {
+                const responseData: t = response.data;
 
                 return {
                     code: response.status,
                     codeText: response.statusText,
-                    data: response.data
+                    data: responseData
                 };
             }
 
@@ -36,5 +37,5 @@ export class Requester {
         }
     }
 
-    static mockResponse = (code: Number, exceptions: any) => ({ code, exceptions });
+    static mockResponse = (code: Number, exceptions: any) => ({ code, exceptions, data: null });
 }
