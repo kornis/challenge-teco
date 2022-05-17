@@ -14,10 +14,10 @@ export default (app: express.Application): void => {
 
     app.use("/v1/location", express.json(), asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
-        if(req.method === "POST") {
+        if(req.method === "GET") {
             try {
 
-                const location = req.body.location || req.url;
+                const location = req.url;
                 const r = await LocationService.getLocationByIp(location);
                 if(r){
                     response.ok(res, r);
@@ -35,5 +35,22 @@ export default (app: express.Application): void => {
         }
     }));
 
+
+    //
+    // CURRENT /city (optional)
+    //
+
+    app.use("/v1/current/:city", asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+
+        if(req.method === "GET") {
+            try {
+
+                const location
+            } catch(err) {
+                console.error(err);
+                response.statusCode(res, 500, "Internal error");
+            }
+        }
+    }))
     
 }

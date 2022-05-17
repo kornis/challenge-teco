@@ -12,14 +12,14 @@ export class IpLocationService implements IpLocationRepository {
         this.repository = repository;
     }
 
-    async getLocationByIp(ipAddress: string): Promise<LocationEntity> {
-        
+    async getLocationByIp(ipAddress: string): Promise<LocationEntity | null> {
         try {
 
             return await this.repository.getLocationByIp(ipAddress);
             
         } catch(err) {
-            throw err;
+            
+            throw { error: err, message: "Error trying to get location by IP" };
         }
     }
 }

@@ -1,4 +1,4 @@
-import { GetLocationDto } from "Domain/Dtos";
+import { LocationMapper } from "Domain/Mappers";
 import { LocationEntity } from "Domain/Entities";
 import { IpLocationRepository } from "Domain/Repositories";
 import { injectable } from "inversify";
@@ -19,8 +19,8 @@ export class IpApi implements IpLocationRepository {
             const response = await this.requester.post<LocationEntity>(fullUrl);
             
             if(response.data)
-            return new GetLocationDto(response.data);
-    
+            return LocationMapper.toApplication(response.data);
+
             return null;
         } catch(err) {
             
