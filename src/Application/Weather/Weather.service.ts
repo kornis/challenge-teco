@@ -8,7 +8,7 @@ import { Result } from "Utils/Result";
 export class WeatherService implements WeatherRepository {
 
     private repository: WeatherRepository;
-    constructor(@inject(IDENTIFIERS.OPENWEATHER) @named(process.env.WEATHER_SERVICE as string) repository: WeatherRepository){
+    constructor(@inject(IDENTIFIERS.WEATHERAPI) @named(process.env.WEATHER_SERVICE as string) repository: WeatherRepository){
         this.repository = repository;
     }
 

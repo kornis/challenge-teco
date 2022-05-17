@@ -4,6 +4,10 @@ export class ForecastMapper {
 
     public static OpenAPItoApplication(raw: any): WeatherEntity {
         return {
+            city: raw.name,
+            country: raw.country,
+            lat: raw.lat,
+            lon: raw.lon,
             description: raw[0]?.description,
             icon: raw[0]?.icon,
             temp: raw.main.temp,
@@ -18,8 +22,13 @@ export class ForecastMapper {
 
     public static WeatherAPItoApplication(raw: any): WeatherEntity {
         return {
-            description: raw.condition.text,
-            icon: raw.condition.icon,
+            city: raw.location.city,
+            region: raw.location.region,
+            country: raw.location.country,
+            lat: raw.location.lat,
+            lon: raw.location.lon,
+            description: raw.current.condition.text,
+            icon: raw.current.condition.icon,
             temp: raw.current.temp_c,
             feels_like: raw.current.feelslike_c,
             pressure: raw.current.presure_mb,

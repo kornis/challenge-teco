@@ -19,12 +19,9 @@ export default (app: express.Application): void => {
             try {
 
                 const ipToGetLocation = req.url;
-                const r = await LocationService.getLocationByIp(ipToGetLocation);
-                if(r){
-                    response.ok(res, r);
-                } else {
-                    response.badRequest(res);
-                }
+                const locationResponse = await LocationService.getLocationByIp(ipToGetLocation);
+                const location = locationResponse.getValue();
+                response.ok(res, location);
 
             } catch(err) {
                 console.error(err)
@@ -41,7 +38,7 @@ export default (app: express.Application): void => {
     // CURRENT /city (optional)
     //
 
-    app.use("/v1/current/:city", asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    app.use("/v1/current/:city?", asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
         if(req.method === "GET") {
             try {
@@ -50,7 +47,7 @@ export default (app: express.Application): void => {
                 const city = req.params?.city;
 
                 if(city){
-                    const weatherResponse = await WeatherService.getWeatherByCity(req.params.city);
+                    const weatherResponse = await WeatherService.getWeatherByCity(city);
                     const weather = weatherResponse.getValue();
 
                     response.ok(res, weather);

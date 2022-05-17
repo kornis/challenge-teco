@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test npm run tsc && jest --verbose --silent --detectOpenHandles",
     "start": "nodemon -e ts --exec \"npm run compile\"",
-    "compile": "npm run tsc -p tsconfig.json && tsc-alias -p tsconfig.json && node dist/js/src/server.js",
+    "compile": "npm run tsc -p tsconfig.json && tsc-alias -p tsconfig.json && node dist/js/server.js",
     "tsc": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json"
   },
   "keywords": [],

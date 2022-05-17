@@ -1,4 +1,9 @@
 export interface WeatherEntity {
+    city?: string;
+    region?: string;
+    country?: string;
+    lat: Number;
+    lon: Number;
     description: string;
     icon?: string;
     temp: Number;

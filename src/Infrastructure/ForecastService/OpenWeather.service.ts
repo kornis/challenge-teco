@@ -9,7 +9,7 @@ import { Result } from "Utils/Result";
 export class OpenWeather implements WeatherRepository {
 
     private baseUrl = "https://api.openweathermap.org/";
-    private urlByCity = this.baseUrl + "/geo/1.0/direct";
+    private urlByCity = this.baseUrl + "geo/1.0/direct";
     private urlByLatLon = this.baseUrl + "data/2.5/weather";
 
     private apikey = process.env.OW_API_KEY;
@@ -39,7 +39,7 @@ export class OpenWeather implements WeatherRepository {
     async getWeatherByCity(city: string): Promise<Result<WeatherEntity>> {
         try {
 
-            const url = this.urlByCity + `q=${city}&apiid=${this.apikey}`;
+            const url = this.urlByCity + `?q=${city}&apiid=${this.apikey}`;
 
             const response = await this.requester.get(url);
 
@@ -58,7 +58,7 @@ export class OpenWeather implements WeatherRepository {
         
         try {
 
-            const url = this.urlByCity + `q=${city}&apiid=${this.apikey}`;
+            const url = this.urlByCity + `?q=${city}&apiid=${this.apikey}`;
 
             const response = await this.requester.get(url);
 

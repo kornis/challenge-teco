@@ -12,7 +12,7 @@ export class WeatherAPI implements WeatherRepository {
     private urlCurrent = this.baseUrl + "current.json";
     private urlForecast = this.baseUrl + "forecast.json";
 
-    private apikey = process.env.OW_API_KEY;
+    private apikey = process.env.WA_API_KEY;
     private requester: Requester;
     constructor() {
         this.requester = new Requester();
@@ -39,7 +39,7 @@ export class WeatherAPI implements WeatherRepository {
     async getWeatherByCity(city: string): Promise<Result<WeatherEntity>> {
         try {
 
-            const url = this.urlCurrent + `q=${city}&key=${this.apikey}`;
+            const url = this.urlCurrent + `?q=${city}&key=${this.apikey}`;
 
             const response = await this.requester.get(url);
 

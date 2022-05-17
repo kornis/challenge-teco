@@ -11,13 +11,13 @@ const container = new Container();
 
 // Infrastructure
 container.bind<IpLocationRepository>(IDENTIFIERS.IPLOCATOR).to(IpApi).whenTargetNamed("ip-api");
-container.bind<WeatherRepository>(IDENTIFIERS.OPENWEATHER).to(OpenWeather).whenTargetNamed("OpenWeather");
+container.bind<WeatherRepository>(IDENTIFIERS.WEATHERAPI).to(OpenWeather).whenTargetNamed("OpenWeather");
 container.bind<WeatherRepository>(IDENTIFIERS.WEATHERAPI).to(WeatherAPI).whenTargetNamed("WeatherAPI");
 
 // Application
 container.bind<IpLocationRepository>(IDENTIFIERS.IPLOCATORSERVICE).to(IpLocationService)
-container.bind<WeatherRepository>(IDENTIFIERS.OPENWEATHERSERVICE).to(WeatherService);
-container.bind<WeatherRepository>(IDENTIFIERS.WEATHERAPISERVICE).to(WeatherService);
+container.bind<WeatherRepository>(IDENTIFIERS.WEATHERSERVICE).to(WeatherService);
+
 
 
 
