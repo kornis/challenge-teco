@@ -1,6 +1,8 @@
 export default {
     "IPLOCATOR": Symbol.for("iplocator"),
     "IPLOCATORSERVICE": Symbol.for("iplocatorservice"),
-    "WEATHER": Symbol.for("weather"),
-    "WEATHERSERVICE": Symbol.for("weatherservice")
+    "OPENWEATHER": Symbol.for("openweather"),
+    "OPENWEATHERSERVICE": Symbol.for("openweatherservice"),
+    "WEATHERAPI": Symbol.for("weatherapi"),
+    "WEATHERAPISERVICE": Symbol.for("weatherapiservice")
 }

@@ -2,6 +2,7 @@ import { LocationEntity } from "Domain/Entities";
 import { IpLocationRepository } from "Domain/Repositories";
 import { injectable, inject, named } from "inversify";
 import IDENTIFIERS from "Utils/inversify_identifiers";
+import { Result } from "Utils/Result";
 
 @injectable()
 export class IpLocationService implements IpLocationRepository {
@@ -12,7 +13,7 @@ export class IpLocationService implements IpLocationRepository {
         this.repository = repository;
     }
 
-    async getLocationByIp(ipAddress: string): Promise<LocationEntity | null> {
+    async getLocationByIp(ipAddress: string): Promise<Result<LocationEntity>> {
         try {
 
             return await this.repository.getLocationByIp(ipAddress);

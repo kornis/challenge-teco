@@ -2,51 +2,29 @@ import { WeatherEntity } from "Domain/Entities";
 import { IpLocationRepository, WeatherRepository } from "Domain/Repositories";
 import { injectable, inject, named } from "inversify";
 import IDENTIFIERS from "Utils/inversify_identifiers";
+import { Result } from "Utils/Result";
 
 @injectable()
 export class WeatherService implements WeatherRepository {
 
     private repository: WeatherRepository;
-    private locationRepository: IpLocationRepository;
-    constructor( 
-        @inject(IDENTIFIERS.WEATHER) @named(process.env.WEATHER_SERVICE as string) repository: WeatherRepository,
-        @inject(IDENTIFIERS.IPLOCATOR) @named(process.env.IP_LOCATOR_NAME as string) locationRepository: IpLocationRepository
-        ){
+    constructor(@inject(IDENTIFIERS.OPENWEATHER) @named(process.env.WEATHER_SERVICE as string) repository: WeatherRepository){
         this.repository = repository;
-        this.locationRepository = locationRepository;
     }
 
-    async getWeatherByLocation(lat: Number, lon: Number): Promise<any> {
+    async getWeatherByLocation(lat: Number, lon: Number): Promise<Result<WeatherEntity>> {
         try {
 
-            await this.repository.getWeatherByLocation(lat, lon);
+            return await this.repository.getWeatherByLocation(lat, lon);
 
         } catch(err) {
 
-            return { error: err, message: "" }
+            throw { error: err, message: "" }
         }
     }
 
-    async getCurrentWeather(localIp: string, city?: string): Promise<WeatherEntity | null> {
 
-        try {
-            let response: WeatherEntity | null;
-            if(city){
-                response = await this.getWeatherByCity(city);
-            } else {
-                const location = await this.locationRepository.getLocationByIp(localIp);
-                response = location && await this.repository.getWeatherByLocation(location?.lat, location?.lon);
-            }
-
-            return response;
-
-        } catch(err) {
-
-            throw { error: err, message: "Error trying to get current weather" };
-        } 
-    }
-
-    async getWeatherByCity(city: string): Promise<WeatherEntity | null> {
+    async getWeatherByCity(city: string): Promise<Result<WeatherEntity>> {
         try {
 
             return await this.repository.getWeatherByCity(city);
@@ -54,6 +32,17 @@ export class WeatherService implements WeatherRepository {
         } catch(err) {
 
             throw { error: err, message: "Error trying to get weather by city" };
+        }
+    }
+
+    async getFiveDaysForecast(city: string): Promise<Result<WeatherEntity>> {
+        try {
+
+            return await this.repository.getFiveDaysForecast(city);
+
+        } catch(err) {
+
+            throw { error: err, message: "Error trying to get 4-day-weather" }
         }
     }
 }

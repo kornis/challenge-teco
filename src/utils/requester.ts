@@ -15,15 +15,14 @@ export class Requester {
 
             const response = await axios.get(url);
 
-            if([200,201].indexOf(response.status) > -1) {
-                const responseData: t = response.data;
+            const responseData: t = response.data;
 
-                return {
-                    code: response.status,
-                    codeText: response.statusText,
-                    data: responseData
-                }
+            return {
+                code: response?.status || 404,
+                codeText: response?.statusText,
+                data: responseData
             }
+            
         } catch(err) {
          
             console.error(err);
@@ -38,21 +37,13 @@ export class Requester {
                 headers: this.headers
             });
 
-            if ([200, 201].indexOf(response.status) > -1) {
                 const responseData: t = response.data;
 
                 return {
-                    code: response.status,
-                    codeText: response.statusText,
+                    code: response?.status || 404,
+                    codeText: response?.statusText,
                     data: responseData
                 };
-            }
-
-            return {
-                code: response.status,
-                codeText: response.statusText,
-                data: null
-            };
 
         } catch (err) {
 
