@@ -1,4 +1,4 @@
-import { WeatherEntity } from "Domain/Entities";
+import { ForecastEntity, WeatherEntity } from "Domain/Entities";
 import { IpLocationRepository, WeatherRepository } from "Domain/Repositories";
 import { injectable, inject, named } from "inversify";
 import IDENTIFIERS from "Utils/inversify_identifiers";
@@ -35,10 +35,10 @@ export class WeatherService implements WeatherRepository {
         }
     }
 
-    async getFiveDaysForecast(city: string): Promise<Result<WeatherEntity>> {
+    async getThreeDaysForecast(city: string): Promise<Result<ForecastEntity>> {
         try {
 
-            return await this.repository.getFiveDaysForecast(city);
+            return await this.repository.getThreeDaysForecast(city);
 
         } catch(err) {
 

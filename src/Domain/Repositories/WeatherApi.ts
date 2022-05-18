@@ -1,4 +1,4 @@
-import { WeatherEntity } from "Domain/Entities";
+import { WeatherEntity, ForecastEntity } from "Domain/Entities";
 import { Result } from "Utils/Result";
 
 export interface WeatherRepository {
@@ -7,5 +7,5 @@ export interface WeatherRepository {
 
     getWeatherByCity(city: string): Promise<Result<WeatherEntity>>;
 
-    getFiveDaysForecast(city: string): Promise<Result<WeatherEntity>>;
+    getThreeDaysForecast(city: string): Promise<Result<ForecastEntity>>;
 }

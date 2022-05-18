@@ -14,4 +14,5 @@ export interface WeatherEntity {
     humidity?: Number;
     visibility?: Number | string;
     windSpeed?: Number;
+    localtime?: string;
 }

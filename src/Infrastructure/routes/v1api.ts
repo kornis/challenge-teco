@@ -70,4 +70,39 @@ export default (app: express.Application): void => {
             next();
         }
     }));
+
+
+    //
+    // FORECAST
+    //
+
+    app.use("/v1/forecast/:city?", asyncHandler(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+
+        if(req.method === "GET") {
+            try {
+                const city = req.params?.city;
+                const ipToGetLocation = req.url;
+                if(city){
+                    const forecastResponse = await WeatherService.getThreeDaysForecast(city);
+                    const forecast = forecastResponse.getValue();
+
+                    response.ok(res, forecast);
+                } else {
+                    const locationResponse = await LocationService.getLocationByIp(ipToGetLocation);
+                    const location = locationResponse.getValue();
+
+                    const forecastResponse = await WeatherService.getThreeDaysForecast(location.city);
+                    const forecast = forecastResponse.getValue();
+
+                    response.ok(res, forecast);
+                }
+            } catch(err) {
+                console.error(err);
+                response.statusCode(res, 500, "Internal error");
+            }
+
+        } else {
+            next();
+        }
+    }))
 }

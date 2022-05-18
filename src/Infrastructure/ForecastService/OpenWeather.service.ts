@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 import { WeatherRepository } from "Domain/Repositories";
 import { Requester } from "Utils/requester";
 import { ForecastMapper } from "Domain/Mappers";
-import { WeatherEntity } from "Domain/Entities";
+import { WeatherEntity, ForecastEntity } from "Domain/Entities";
 import { Result } from "Utils/Result";
 
 @injectable()
@@ -54,7 +54,7 @@ export class OpenWeather implements WeatherRepository {
         }
     }
 
-    async getFiveDaysForecast(city: string): Promise<Result<WeatherEntity>> {
+    async getThreeDaysForecast(city: string): Promise<Result<ForecastEntity>> {
         
         try {
 
@@ -63,9 +63,9 @@ export class OpenWeather implements WeatherRepository {
             const response = await this.requester.get(url);
 
             if(response.data)
-            return Result.ok(ForecastMapper.OpenAPItoApplication(response.data));
+            return Result.ok(ForecastMapper.WeatherAPIForecastToApplication(response.data));
 
-            return Result.fail("Error trying to get 4-day-weather");
+            return Result.fail("Error trying to get 3-day-weather");
 
         } catch(err) {
 
