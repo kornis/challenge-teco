@@ -19,16 +19,16 @@
 <h3>Instalación</h3>
 <ul>
     <li>Clonar el proyecto</li>
-    <li>Correr el comando "npm install" para instalar las dependencias</li>
-    <li>Levantar el servidor con el comando "npm start"</li>
-    <li>Comando "npm run test" para correr tests (no tener el servidor corriendo)</li>
+    <li>Correr el comando <strong>"npm install"</strong> para instalar las dependencias</li>
+    <li>Levantar el servidor con el comando <strong>"npm start"</strong></li>
+    <li>Comando <strong>"npm run test"</strong> para correr tests (no tener el servidor corriendo)</li>
 </ul>
 
 <h3>Endpoints</h3>
 <ul>
     <li><strong>/v1/location</strong> => Devuelve la ubicación actual basado en la IP</li>
-    <li><strong>/v1/current/[city?] => Devuelve el pronostico del clima actual basado en la ciudad (city: parámetro opcional) o en la IP</strong></li>
-    <li><strong>/v1/forecast/[city?] => Devuelve el pronostico del clima para los próximos 3 días basado en la ciudad (city: parámetro opcional) o en la IP</strong></li>
+    <li><strong>/v1/current/[city?]</strong> => Devuelve el pronostico del clima actual basado en la ciudad (city: parámetro opcional) o en la IP</li>
+    <li><strong>/v1/forecast/[city?]</strong> => Devuelve el pronostico del clima para los próximos 3 días basado en la ciudad (city: parámetro opcional) o en la IP</li>
 </ul>
 <br>
 <hr>
