@@ -20,10 +20,12 @@ export default (app: express.Application): void => {
 
                 const ipToGetLocation = req.url;
                 const locationResponse = await LocationService.getLocationByIp(ipToGetLocation);
-                const location = locationResponse.getValue();
-                response.ok(res, location);
+                
+                locationResponse.isSuccess && response.ok(res, locationResponse.getValue());
+                
+                locationResponse.isFailure && response.statusCode(res, locationResponse.getStatusCode());
 
-            } catch(err) {
+            } catch(err: any) {
                 console.error(err)
                 response.statusCode(res, 500, "Internal error")
             }
@@ -48,18 +50,27 @@ export default (app: express.Application): void => {
 
                 if(city){
                     const weatherResponse = await WeatherService.getWeatherByCity(city);
-                    const weather = weatherResponse.getValue();
-
-                    response.ok(res, weather);
+                    
+                    weatherResponse.isSuccess && response.ok(res, weatherResponse.getValue());
+                        
+                    weatherResponse.isFailure && response.statusCode(res, weatherResponse.getStatusCode());
 
                 } else {
                     const locationResponse = await LocationService.getLocationByIp(ipToGetLocation);
-                    const location = locationResponse.getValue();
-                    
-                    const weatherResponse = await WeatherService.getWeatherByLocation(location.lat, location.lon);
-                    const weather = weatherResponse.getValue();
 
-                    response.ok(res, weather);
+                    if(locationResponse.isSuccess){
+                        const location = locationResponse.getValue();
+                        
+                        const weatherResponse = await WeatherService.getWeatherByLocation(location.lat, location.lon);
+
+                        weatherResponse.isSuccess && response.ok(res, weatherResponse.getValue());
+        
+                        weatherResponse.isFailure && response.statusCode(res, weatherResponse.getStatusCode());    
+                            
+                    } else {
+
+                        response.statusCode(res, locationResponse.getStatusCode())
+                    }
                 }
 
             } catch(err) {
@@ -84,17 +95,24 @@ export default (app: express.Application): void => {
                 const ipToGetLocation = req.url;
                 if(city){
                     const forecastResponse = await WeatherService.getThreeDaysForecast(city);
-                    const forecast = forecastResponse.getValue();
 
-                    response.ok(res, forecast);
+                    forecastResponse.isSuccess && response.ok(res, forecastResponse.getValue());
+
+                    forecastResponse.isFailure && response.statusCode(res, forecastResponse.getStatusCode());
+                    
                 } else {
                     const locationResponse = await LocationService.getLocationByIp(ipToGetLocation);
-                    const location = locationResponse.getValue();
+                    
+                    if(locationResponse.isSuccess){
+                        const location = locationResponse.getValue();
+                        const forecastResponse = await WeatherService.getThreeDaysForecast(location.city);
 
-                    const forecastResponse = await WeatherService.getThreeDaysForecast(location.city);
-                    const forecast = forecastResponse.getValue();
+                        forecastResponse.isSuccess && response.ok(res, forecastResponse.getValue());
+    
+                        forecastResponse.isFailure && response.statusCode(res, forecastResponse.getStatusCode());
+                    }
 
-                    response.ok(res, forecast);
+                    response.statusCode(res, locationResponse.getStatusCode());
                 }
             } catch(err) {
                 console.error(err);

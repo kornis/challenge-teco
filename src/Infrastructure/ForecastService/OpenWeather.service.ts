@@ -26,9 +26,9 @@ export class OpenWeather implements WeatherRepository {
             const response = await this.requester.get(url);
             
             if(response.data)
-            return Result.ok(ForecastMapper.OpenAPItoApplication(response.data));
+            return Result.ok(ForecastMapper.OpenAPItoApplication(response.data), response.code);
 
-            return Result.fail("Error trying to get weather by location")
+            return Result.fail("Error trying to get weather by location", response.code)
 
         } catch(err) {
 
@@ -44,9 +44,9 @@ export class OpenWeather implements WeatherRepository {
             const response = await this.requester.get(url);
 
             if(response.data)
-            return Result.ok(ForecastMapper.OpenAPItoApplication(response.data));
+            return Result.ok(ForecastMapper.OpenAPItoApplication(response.data), response.code);
             
-            return Result.fail("Error trying to get weather by city name");
+            return Result.fail("Error trying to get weather by city name", response.code);
 
         } catch(err) {
 
@@ -63,9 +63,9 @@ export class OpenWeather implements WeatherRepository {
             const response = await this.requester.get(url);
 
             if(response.data)
-            return Result.ok(ForecastMapper.WeatherAPIForecastToApplication(response.data));
+            return Result.ok(ForecastMapper.WeatherAPIForecastToApplication(response.data), response.code);
 
-            return Result.fail("Error trying to get 3-day-weather");
+            return Result.fail("Error trying to get 3-day-weather", response.code);
 
         } catch(err) {
 

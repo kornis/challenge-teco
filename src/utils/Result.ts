@@ -3,8 +3,9 @@ export class Result<T> {
     public isFailure: boolean;
     public error: unknown;
     private _value: unknown;
+    private statusCode?: unknown;
 
-    private constructor (isSuccess: boolean, error: unknown, value?: unknown) {
+    private constructor (isSuccess: boolean, error: unknown, value?: unknown, statusCode?: unknown) {
         if(isSuccess && error) {
             throw new Error("InvalidOperation: A result cannot be successful and contain an error");
         }
@@ -17,6 +18,7 @@ export class Result<T> {
         this.isFailure = !isSuccess;
         this.error = error;
         this._value = value;
+        this.statusCode = statusCode;
 
         Object.freeze(this);
     }
@@ -29,11 +31,16 @@ export class Result<T> {
         return this._value as T;
     }
 
-    public static ok<U>(value?: U): Result<U> {
-        return new Result<U>(true, null, value);
+    public getStatusCode(): number {
+
+        return this.statusCode as number;
     }
 
-    public static fail<U>(error: string): Result<U> {
-        return new Result<U>(false, error);
+    public static ok<U>(value?: U, statusCode?: Number): Result<U> {
+        return new Result<U>(true, null, value, statusCode);
+    }
+
+    public static fail<U>(error: string, statusCode?: Number): Result<U> {
+        return new Result<U>(false, error, null, statusCode);
     }
 }

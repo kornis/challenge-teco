@@ -11,22 +11,27 @@ export class Requester {
     }
 
     async get<t>(url: string) {
+        let response: any;
         try {
 
-            const response = await axios.get(url);
+            response = await axios.get(url);
 
             const responseData: t = response.data;
 
             return {
-                code: response?.status || 404,
-                codeText: response?.statusText,
+                code: response.status,
+                codeText: response.statusText,
                 data: responseData
             }
             
-        } catch(err) {
+        } catch(err: any) {
          
             console.error(err);
-            throw ({ error: err, message: "Error trying to get weather by city" });
+            return {
+                code: err.response?.status || 404,
+                codeText: err.response?.statusText,
+                data: null
+            }
         }
     }
 

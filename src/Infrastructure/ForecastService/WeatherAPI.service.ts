@@ -24,11 +24,11 @@ export class WeatherAPI implements WeatherRepository {
             const url = this.urlCurrent + `?q=${lat},${lon}&key=${this.apikey}`;
 
             const response = await this.requester.get(url);
-            
-            if(response.data)
-            return Result.ok(ForecastMapper.WeatherAPItoApplication(response.data));
 
-            return Result.fail("Error trying to get weather by location")
+            if(response.data)
+            return Result.ok(ForecastMapper.WeatherAPItoApplication(response.data), response.code);
+
+            return Result.fail("Error trying to get weather by location", response.code)
 
         } catch(err) {
 
@@ -44,9 +44,9 @@ export class WeatherAPI implements WeatherRepository {
             const response = await this.requester.get(url);
 
             if(response.data)
-            return Result.ok(ForecastMapper.WeatherAPItoApplication(response.data));
+            return Result.ok(ForecastMapper.WeatherAPItoApplication(response.data), response.code);
             
-            return Result.fail("Error trying to get weather by city name");
+            return Result.fail("Error trying to get weather by city name", response.code);
 
         } catch(err) {
 
@@ -63,9 +63,9 @@ export class WeatherAPI implements WeatherRepository {
             const response = await this.requester.get(url);
 
             if(response.data)
-            return Result.ok(ForecastMapper.WeatherAPIForecastToApplication(response.data));
+            return Result.ok(ForecastMapper.WeatherAPIForecastToApplication(response.data), response.code);
 
-            return Result.fail("Error trying to get 3-day-weather");
+            return Result.fail("Error trying to get 3-day-weather", response.code);
 
         } catch(err) {
 

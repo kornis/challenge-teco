@@ -21,13 +21,23 @@ export const badRequest = (res: express.Response, message?: string) => {
 
 
 export function statusCode(res: express.Response, code: number, message?: string): void {
-
     const payload = {
       "code": code,
-      "message": (message !== undefined) ? message : undefined
+      "message": (message !== undefined) ? message : httpCodes[code]
     };
   
 
     res.status(code).json(payload);
   
   }
+
+const httpCodes: Record<number, string> = {
+  200: "OK",
+  201: "Created",
+  202: "Accepted",
+  400: "Bad request",
+  401: "Unauthorized",
+  403: "Forbidden",
+  404: "Not found",
+  500: "Internal error"
+}
